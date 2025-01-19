@@ -1,0 +1,11 @@
+[gcloud]
+disabled = true
+
+[ruby]
+detect_variables = []
+
+[scala]
+detect_folders = []
+
+[nix_shell]
+heuristic = true

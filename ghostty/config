@@ -1,0 +1,18 @@
+theme = catppuccin-mocha
+
+# Fonts
+font-family = FiraCode Nerd Font
+font-size = 16
+
+# Macos
+macos-option-as-alt = false
+
+cursor-style-blink = false
+
+keybind = ctrl+-=text:\x1f
+keybind = cmd+ctrl+r=reload_config
+
+# background-opacity = 0.8
+# background-blur-radius = 20
+
+mouse-hide-while-typing = true
