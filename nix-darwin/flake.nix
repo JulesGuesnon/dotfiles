@@ -17,6 +17,7 @@
           packages =
             [ pkgs.aerospace ]
             ++ (import ./packages/base.nix args)
+            ++ (import ./packages/terminal.nix args)
             ++ (import ./packages/apps.nix args)
             ++ (import ./packages/langs.nix args)
             ++ (import ./packages/ide.nix args)
