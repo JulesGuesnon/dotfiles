@@ -1,5 +1,6 @@
 return {
   "williamboman/mason.nvim",
+  tag = "v1.11.0",
   opts = {
     ensure_installed = {
       "biome",
