@@ -23,6 +23,16 @@ require("lspconfig").gopls.setup({
   },
 })
 
+require("lspconfig").sourcekit.setup({
+  capabilities = {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    },
+  },
+})
+
 -- require("lspconfig").tailwindcss.setup({
 --   init_options = { userLanguages = { heex = "html" } },
 -- })
