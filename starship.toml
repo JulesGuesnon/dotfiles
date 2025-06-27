@@ -9,3 +9,12 @@ detect_folders = []
 
 [nix_shell]
 heuristic = true
+
+[java]
+disabled = true
+
+[gradle]
+disabled = true
+
+[kotlin]
+disabled = true

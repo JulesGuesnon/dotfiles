@@ -23,6 +23,8 @@
             ++ (import ./packages/ide.nix args)
             ++ (import ./packages/utils.nix args);
         in
+        let
+          zshInit = import ./zshInit.nix; in
         {
 
           homebrew.enable = true;
@@ -47,9 +49,17 @@
             enable = true;
             enableCompletion = true;
             enableBashCompletion = true;
+            enableAutosuggestions = true;
+            enableSyntaxHighlighting = true;
+            shellInit = zshInit.shellInit;
+            interactiveShellInit = zshInit.interactiveShellInit { inherit pkgs; };
+            loginShellInit = zshInit.loginShellInit;
+            promptInit = zshInit.loginShellInit;
+            enableFzfCompletion = true;
+            enableFzfHistory = true;
           };
 
-          system.primaryUser = "julesguesnon";
+          system.primaryUser = "jules.guesnon";
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
