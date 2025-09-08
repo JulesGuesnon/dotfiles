@@ -54,7 +54,16 @@
 
           system.defaults = import ./system.nix;
           # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
+          nix.settings = {
+            experimental-features = "nix-command flakes";
+            substituters = [
+              "https://cache.nixos.org/"
+            ];
+            trusted-public-keys = [
+              "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            ];
+            builders-use-substitutes = true;
+          };
 
           programs.zsh = {
             enable = true;
@@ -70,7 +79,7 @@
             enableFzfHistory = true;
           };
 
-          system.primaryUser = "jules.guesnon";
+          system.primaryUser = "julesguesnon";
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 

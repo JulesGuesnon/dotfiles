@@ -7,5 +7,7 @@
   pkgs.uv
   pkgs.go
   pkgs.jdk
+  pkgs.swift
+  pkgs.swiftPackages.swiftpm
   # pkgs.opam
 ]
