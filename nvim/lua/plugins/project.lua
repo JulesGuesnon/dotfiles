@@ -2,8 +2,12 @@ return {
   "coffebar/neovim-project",
   opts = {
     projects = { -- define project roots
+      "~/Dev/*",
+      "~/Dev/weft/libs/arene/*",
+      "~/Dev/weft/apps/arene/*",
+      "~/Dev/weft/apps/weft/*",
+      "~/Dev/weft/libs/weft/*",
       "~/.config/nvim",
-      -- TODO: Fill after clone
     },
     picker = {
       type = "telescope", -- or "fzf-lua"

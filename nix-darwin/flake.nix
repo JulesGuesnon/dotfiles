@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -15,7 +15,7 @@
         let
           args = { inherit pkgs; };
           packages =
-            [ pkgs.aerospace ]
+            [ ]
             ++ (import ./packages/base.nix args)
             ++ (import ./packages/terminal.nix args)
             ++ (import ./packages/apps.nix args)
@@ -27,14 +27,25 @@
           zshInit = import ./zshInit.nix; in
         {
 
-          homebrew.enable = true;
-          homebrew.brews = [
-            "xcode-build-server" # CLI package
-          ];
+          homebrew = {
+            enable = true;
+            casks = [ "docker" ];
+            brews = [
+              "xcode-build-server" # CLI package
+            ];
+
+          };
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages =
             packages;
+
+          environment.variables = {
+            EDITOR = "nvim";
+            VISUAL = "nvim";
+            GIT_EDITOR = "nvim";
+            JAVA_HOME = "${pkgs.jdk}";
+          };
 
           # Installed at /Library/Fonts/Nix\ Fonts/
           fonts.packages = [

@@ -1,6 +1,7 @@
 {
   shellInit = ''
     export PATH="~/.fnm:$PATH"
+    export PATH="$HOME/.cargo/bin:$PATH"
     export LANG=en_US.UTF-8
 
     alias c='cd $(git rev-parse --show-toplevel)'

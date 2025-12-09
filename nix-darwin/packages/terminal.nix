@@ -7,4 +7,7 @@
   pkgs.zsh-history-substring-search
   pkgs.zsh-fzf-tab
   pkgs.gh
+  pkgs.kubectl
+  pkgs.pinniped
+  pkgs.k9s
 ]

@@ -4,4 +4,5 @@
   pkgs.lazygit
   pkgs.lazydocker
   pkgs.neovim
+  pkgs.tree-sitter
 ]
