@@ -8,31 +8,6 @@ local should_biome_start = require("utils.file_exists").file_exists("./biome.jso
 -- )
 -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
-require("lspconfig").ocamllsp.setup({
-  root_dir = require("lspconfig.util").root_pattern("*.opam", "esy.json", ".git", "dune-project", "dune-workspace"),
-})
-
-require("lspconfig").gopls.setup({
-  filetypes = { "go", "gomod", "gowork", "gotmpl" },
-  root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
-  opts = {
-    completeUninported = true,
-    analyses = {
-      unusedparams = true,
-    },
-  },
-})
-
-require("lspconfig").sourcekit.setup({
-  capabilities = {
-    workspace = {
-      didChangeWatchedFiles = {
-        dynamicRegistration = true,
-      },
-    },
-  },
-})
-
 -- require("lspconfig").tailwindcss.setup({
 --   init_options = { userLanguages = { heex = "html" } },
 -- })
@@ -43,8 +18,37 @@ return {
     ---@class PluginLspOpts
     opts = {
       inlay_hints = { enabled = true },
-      ---@type lsp.options
       servers = {
+        ocamllsp = {
+          root_dir = require("lspconfig.util").root_pattern(
+            "*.opam",
+            "esy.json",
+            ".git",
+            "dune-project",
+            "dune-workspace"
+          ),
+        },
+        gopls = {
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+          root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+          settings = {
+            gopls = {
+              completeUnimported = true,
+              analyses = {
+                unusedparams = true,
+              },
+            },
+          },
+        },
+        sourcekit = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
+            },
+          },
+        },
         rust_analyzer = {
           settings = {
             ["rust-analyzer"] = {
@@ -58,36 +62,37 @@ return {
           hints = true,
         },
         biome = {
-          -- Disabling linting
           autostart = should_biome_start,
         },
-        tsserver = {
-          root_dir = require("lspconfig.util").root_pattern("package.json"),
+        ts_ls = {
+          -- root_dir = require("lspconfig.util").root_pattern("package.json"),
           cmd = { "bunx", "--bun", "typescript-language-server", "--stdio" },
           on_attach = function(client)
             client.server_capabilities.documentFormattingProvider = false
           end,
-          javascript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = true,
-            },
-          },
-          typescript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = true,
-            },
+          settings = {
+            -- javascript = {
+            --   inlayHints = {
+            --     includeInlayEnumMemberValueHints = true,
+            --     includeInlayFunctionLikeReturnTypeHints = true,
+            --     includeInlayFunctionParameterTypeHints = true,
+            --     includeInlayParameterNameHints = "all",
+            --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            --     includeInlayPropertyDeclarationTypeHints = true,
+            --     includeInlayVariableTypeHints = true,
+            --   },
+            -- },
+            -- typescript = {
+            --   inlayHints = {
+            --     includeInlayEnumMemberValueHints = true,
+            --     includeInlayFunctionLikeReturnTypeHints = true,
+            --     includeInlayFunctionParameterTypeHints = true,
+            --     includeInlayParameterNameHints = "all",
+            --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            --     includeInlayPropertyDeclarationTypeHints = true,
+            --     includeInlayVariableTypeHints = true,
+            --   },
+            -- },
           },
         },
       },
