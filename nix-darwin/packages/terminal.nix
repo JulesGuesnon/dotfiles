@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, pkgs-unstable }:
 [
   pkgs.starship
   pkgs.zsh-autosuggestions

@@ -3,17 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable }:
     let
       configuration = { pkgs, ... }:
 
-
         let
-          args = { inherit pkgs; };
+          pkgs-unstable = import nixpkgs-unstable {
+            system = "aarch64-darwin";
+          };
+        in
+        let
+          args = { inherit pkgs pkgs-unstable; };
           packages =
             [ ]
             ++ (import ./packages/base.nix args)
