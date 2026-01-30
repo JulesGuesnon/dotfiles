@@ -3,7 +3,7 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
-        file_ignore_patterns = { "%.git/" },
+        file_ignore_patterns = { "%.git/", "node_modules/", "%.cache/", "target/", "build/", "dist/" },
         vimgrep_arguments = {
           "rg",
           "--hidden",

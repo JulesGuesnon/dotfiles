@@ -21,6 +21,8 @@ return {
     { "nvim-lua/plenary.nvim" },
     { "Shatur/neovim-session-manager" },
   },
-  lazy = false,
-  priority = 100,
+  keys = {
+    { "<leader>p", "<cmd>NeovimProjectDiscover<CR>", desc = "Open projects" },
+  },
+  cmd = { "NeovimProjectDiscover", "NeovimProjectHistory", "NeovimProjectLoadRecent" },
 }

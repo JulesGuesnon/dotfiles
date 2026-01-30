@@ -27,12 +27,5 @@ vim.keymap.set("n", "<S-TAB>", "<<")
 
 vim.keymap.set("n", "<leader>k", "<cmd>LazyDocker<CR>", { desc = "Toggle LazyDocker", noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>gD", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview", noremap = true, silent = true })
 
-vim.keymap.set(
-  "n",
-  "<leader>p",
-  "<cmd>NeovimProjectDiscover<CR>",
-  { desc = "Open projects", noremap = true, silent = true }
-)
+
