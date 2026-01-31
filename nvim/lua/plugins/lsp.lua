@@ -48,6 +48,12 @@ return {
               },
             },
           },
+          cmd = { "sourcekit-lsp" },
+          filetypes = { "swift" },
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern("Package.swift")(fname)
+              or require("lspconfig.util").root_pattern("*.xcodeproj")(fname)
+          end,
         },
         rust_analyzer = {
           settings = {
@@ -70,29 +76,14 @@ return {
           on_attach = function(client)
             client.server_capabilities.documentFormattingProvider = false
           end,
-          settings = {
-            -- javascript = {
-            --   inlayHints = {
-            --     includeInlayEnumMemberValueHints = true,
-            --     includeInlayFunctionLikeReturnTypeHints = true,
-            --     includeInlayFunctionParameterTypeHints = true,
-            --     includeInlayParameterNameHints = "all",
-            --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            --     includeInlayPropertyDeclarationTypeHints = true,
-            --     includeInlayVariableTypeHints = true,
-            --   },
-            -- },
-            -- typescript = {
-            --   inlayHints = {
-            --     includeInlayEnumMemberValueHints = true,
-            --     includeInlayFunctionLikeReturnTypeHints = true,
-            --     includeInlayFunctionParameterTypeHints = true,
-            --     includeInlayParameterNameHints = "all",
-            --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            --     includeInlayPropertyDeclarationTypeHints = true,
-            --     includeInlayVariableTypeHints = true,
-            --   },
-            -- },
+          settings = {},
+        },
+        mdx_analyzer = {
+
+          init_options = {
+            typescript = {
+              enabled = true,
+            },
           },
         },
       },

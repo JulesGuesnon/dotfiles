@@ -24,6 +24,7 @@ return {
         "kotlin-lsp",
         "ktlint",
         "gradle-language-server",
+        "mdx-analyzer",
       },
       ui = {
         border = "rounded",
