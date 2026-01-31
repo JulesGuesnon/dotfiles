@@ -10,4 +10,5 @@
   pkgs.kubectl
   pkgs.pinniped
   pkgs.k9s
+  pkgs.ollama
 ]
