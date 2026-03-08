@@ -1,25 +1,10 @@
-local util = require("lspconfig.util")
-
 local should_biome_start = require("utils.file_exists").file_exists("./biome.json")
 
 -- Oxlint LSP configuration
--- Note: oxlint LSP server binary is 'oxc_language_server' (installed with `npm install -g oxlint`)
-vim.lsp.config("oxlint", {
-  cmd = { "oxc_language_server" },
-  root_dir = util.root_pattern(".oxlintrc.json"),
-  single_file_support = false,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "vue",
-    "svelte",
-    "astro",
-  },
-})
-
-vim.lsp.enable("oxlint")
+-- Oxlint provides LSP via: oxlint --lsp
+-- Install in your project: npm install -D oxlint
+-- Create .oxlintrc.json to enable: echo '{}' > .oxlintrc.json
+-- The LSP will use lspconfig's built-in oxlint configuration
 
 -- Configure LSP capabilities for blink.cmp
 local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -61,6 +46,17 @@ return {
         },
       },
       servers = {
+        -- Oxlint LSP - automatically picks up .oxlintrc.json
+        -- Provides linting with 500+ ESLint rules
+        -- Use :LspOxlintFixAll to apply automatic fixes
+        oxlint = {
+          -- lspconfig handles local node_modules/.bin/oxlint automatically
+          -- Type-aware linting enabled if .oxlintrc.json contains "typescript"
+          settings = {
+            typeAware = true, -- Enable type-aware linting
+            -- run = 'onType', -- Run on every keystroke (default: onSave)
+          },
+        },
         ocamllsp = {
           root_dir = require("lspconfig.util").root_pattern(
             "*.opam",
