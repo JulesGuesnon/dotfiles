@@ -1,3 +1,5 @@
+local tooling = require("utils.tooling")
+
 return {
   "mfussenegger/nvim-lint",
   config = function(_, opts)
@@ -16,10 +18,7 @@ return {
       },
       stream = "stdout",
       ignore_exitcode = true,
-      parser = require("lint.parser").from_pattern(
-        "^(.-):(%d+):(%d+):%s*(.+)$",
-        { "file", "lnum", "col", "message" }
-      ),
+      parser = require("lint.parser").from_pattern("^(.-):(%d+):(%d+):%s*(.+)$", { "file", "lnum", "col", "message" }),
     }
 
     -- Apply opts
@@ -28,16 +27,24 @@ return {
     end
   end,
   opts = function()
-    local should_eslint_start = require("utils.file_exists").file_exists("./.eslintrc.json")
+    local linter = tooling.get_linter()
+
+    local linters_by_ft = {
+      -- Kotlin - always lint
+      kotlin = { "ktlint", "detekt" },
+    }
+
+    -- Only add JS/TS linting if eslint is the selected linter
+    -- (oxlint and biome are handled by their LSP servers)
+    if linter == "eslint_d" then
+      linters_by_ft.javascript = { "eslint_d" }
+      linters_by_ft.typescript = { "eslint_d" }
+      linters_by_ft.javascriptreact = { "eslint_d" }
+      linters_by_ft.typescriptreact = { "eslint_d" }
+    end
+
     return {
-      linters_by_ft = should_eslint_start and {
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
-      } or {
-        kotlin = { "ktlint", "detekt" },
-      },
+      linters_by_ft = linters_by_ft,
     }
   end,
 }

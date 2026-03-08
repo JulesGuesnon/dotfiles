@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    version = "v0.7.6",
+    version = "v1.*",
     enabled = true,
   },
 }
